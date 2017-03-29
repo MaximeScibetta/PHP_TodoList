@@ -47,11 +47,12 @@ function postUpdate()
     if ( isset($_POST['is_done'])){
         $_POST['is_done'] = 1;
     }else{
-        $_POST['is_done'] = 0; // faut mettre la valeur actuelle
+        $_POST['is_done'] = 0;
     }
-    if(!isset($_POST['description'])) {
-        $_POST['description'] = null;
-    }
+    isset($_POST['description']) ?: $_POST['description'] = null;
+//    if(!isset($_POST['description'])) {
+//        $_POST['description'] = null;
+//    }
     $isDone = $_POST['is_done'];
     $description = $_POST['description'];
     $taskId = $_POST['id'];

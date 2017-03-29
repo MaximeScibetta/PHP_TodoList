@@ -82,7 +82,7 @@ function modifyTask($description, $isDone, $taskId)
 {
     $pdo = connectDB();
     if($pdo){
-        $sql="UPDATE tasks SET description=:description, is_done=:isDone, id=:id WHERE id = :id";
+        $sql="UPDATE tasks SET description=IFNULL(:description, description), is_done=:isDone WHERE id = :id";
         try{
             $pdoSt = $pdo->prepare($sql);
             $pdoSt->execute([
@@ -97,21 +97,3 @@ function modifyTask($description, $isDone, $taskId)
         die('Quelque chose a posé problème lors de l’enregistrement');
     }
 }
-//function checkTask($taskId, $isDone)
-//{
-//    $pdo = connectDB();
-//    if($pdo){
-//        $sql = 'UPDATE tasks SET is_done=:isDone WHERE id = :id';
-//        try{
-//            $pdoSt = $pdo->prepare($sql);
-//            $pdoSt->execute([
-//               ':id' =>$taskId,
-//                ':isDone' => $isDone,
-//            ]);
-//        }catch (PDOException $e) {
-//            return '';
-//        }
-//    } else {
-//        die('Quelque chose a posé problème lors de l’enregistrement');
-//    }
-//}

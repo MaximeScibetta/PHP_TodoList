@@ -37,7 +37,13 @@
                     <input type="password"
                            id="password"
                            name="password" class="form-control form-control-lg">
-                    <span class="col-sm-2 col-form-label col-form-label-lg">Votre mot de passe</span></label>
+                    <span class="col-sm-2 col-form-label col-form-label-lg">Votre mot de passe</span>
+                </label>
+                <?php if((isset($_SESSION['errors']['password']))): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $_SESSION['errors']['password']; ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <input type="hidden"
                    name="a"
