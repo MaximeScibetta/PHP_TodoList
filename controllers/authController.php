@@ -1,6 +1,10 @@
 <?php
 function getLogin()
 {
+    // Si l'user est log rediriger vers la page de creation de page
+    if( isset($_SESSION['user'])){
+        header('Location: http://homestead.app'.$_SERVER['PHP_SELF'].'?a=listing&r=task');
+    }
     return ['view' => 'views/userLogin.php'];
 }
 function postLogin()
