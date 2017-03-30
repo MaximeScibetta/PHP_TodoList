@@ -1,8 +1,8 @@
 <?php
 function checkLogin()
 {
-    if( !isset($_SESSION['user'])){
-        header('Location: http://homestead.app'.$_SERVER['PHP_SELF']);
+    if( !isset($_SESSION['user'])) {
+        header('Location: http://homestead.app' . $_SERVER['PHP_SELF']);
         exit;
     }
 }
@@ -10,10 +10,9 @@ function listing()
 {
     checkLogin();
     include 'models/taskModel.php';
-    if (getTasks($_SESSION['user']->id)) {
-        $_SESSION['task'] = getTasks($_SESSION['user']->id);
+    if ($_SESSION['task'] = getTasks($_SESSION['user']->id)) {
         $view = 'views/indexTask.php';
-    } elseif (!getTasks($_SESSION['user']->id)){
+    } else {
         $_SESSION['errors'] = [
             'task' => 'Il semblerait que vous n`ayez pas encore de tâche.',
         ];
@@ -45,6 +44,7 @@ function postDelete()
 function getUpdate()
 {
     checkLogin();
+    //$taskId = $_GET['id'];
     return ['view' => 'views/indexTask.php'];
 }
 
