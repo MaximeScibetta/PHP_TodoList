@@ -1,11 +1,14 @@
 <?php
-//if( !$_SESSION['task'] ){
-//    echo 'Vous n`avez pas encore de tâches. ';
-//}elseif ( !isset($_SESSION['task']) ) {
-//    $view = 'views/indexTask.php';
-//}
+function checkLogin()
+{
+    if( !isset($_SESSION['user'])){
+        header('Location: http://homestead.app'.$_SERVER['PHP_SELF']);
+        exit;
+    }
+}
 function listing()
 {
+    checkLogin();
     include 'models/taskModel.php';
     if (getTasks($_SESSION['user']->id)) {
         $_SESSION['task'] = getTasks($_SESSION['user']->id);
@@ -20,6 +23,7 @@ function listing()
 }
 function create()
 {
+    checkLogin();
     $description = $_POST['description'];
     include 'models/taskModel.php';
     if( isset($description) ){
@@ -30,6 +34,7 @@ function create()
 }
 function postDelete()
 {
+    checkLogin();
     $taskId = $_POST['id'];
     include 'models/taskModel.php';
     deleteTask($taskId);
@@ -39,20 +44,20 @@ function postDelete()
 }
 function getUpdate()
 {
+    checkLogin();
     return ['view' => 'views/indexTask.php'];
 }
 
 function postUpdate()
 {
+    checkLogin();
     if ( isset($_POST['is_done'])){
         $_POST['is_done'] = 1;
     }else{
         $_POST['is_done'] = 0;
     }
     isset($_POST['description']) ?: $_POST['description'] = null;
-//    if(!isset($_POST['description'])) {
-//        $_POST['description'] = null;
-//    }
+
     $isDone = $_POST['is_done'];
     $description = $_POST['description'];
     $taskId = $_POST['id'];
