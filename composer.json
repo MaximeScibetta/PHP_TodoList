@@ -1,0 +1,10 @@
+{
+    "name": "root/todo_tasks",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Models\\": "models/",
+            "Controllers\\": "controllers/"
+        }
+    }
+}

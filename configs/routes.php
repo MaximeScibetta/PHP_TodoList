@@ -5,7 +5,7 @@
  * Date: 23-03-17
  * Time: 15:05
  */
-$routes = [
+return [
     'default'       => 'GET/auth/getLogin',
     'login'         => 'POST/auth/postLogin',
     'logout'        => 'GET/auth/getLogout',
