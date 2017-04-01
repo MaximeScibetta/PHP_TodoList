@@ -2,11 +2,20 @@
 
 namespace Models;
 
+use Models\Model as ModelModel;
+
 class Auth
 {
+    private $modelModel = null;
+
+    public function __construct()
+    {
+        $this->modelModel = new ModelModel();
+    }
+
     public function checkUser($email, $password)
     {
-        $pdo = connectDB();
+        $pdo = $this->modelModel->connectDB();
         if ($pdo) {
             $sql = 'SELECT * FROM users WHERE email = :email AND password = :password';
             try {

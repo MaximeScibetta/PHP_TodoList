@@ -3,7 +3,7 @@ namespace Controllers;
 
 use Models\Task as TaskModel;
 
-class Task
+class Task extends Controller
 {
     private $tasksModel = null;
 

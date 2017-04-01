@@ -2,11 +2,20 @@
 
 namespace Models;
 
+use Models\Model as ModelModel;
+
 class Task
 {
+    private $modelModel = null;
+
+    public function __construct()
+    {
+        $this->modelModel = new ModelModel();
+    }
+
     public function getTasks($userId)
     {
-        $pdo = connectDB();
+        $pdo = $this->modelModel->connectDB();
         if ($pdo){
             $sql = 'SELECT tasks.id AS taskId, tasks.description AS taskDescription, tasks.is_done AS taskIsDone 
                 FROM tasks
@@ -29,7 +38,7 @@ class Task
     }
     public function newTask($description)
     {
-        $pdo = connectDB();
+        $pdo = $this->modelModel->connectDB();
         if($pdo){
             $sql = 'INSERT INTO tasks(`description`) VALUES(:description)';
             try{
@@ -49,7 +58,7 @@ class Task
     }
     public function createTask($taskId, $userId)
     {
-        $pdo = connectDB();
+        $pdo = $this->modelModel->connectDB();
         if($pdo){
             $sql = 'INSERT INTO task_user(`task_id`, `user_id`) VALUES(:task_id, :user_id)';
             try{
@@ -67,7 +76,7 @@ class Task
     }
     public function deleteTask($taskId)
     {
-        $pdo = connectDB();
+        $pdo = $this->modelModel->connectDB();
         if($pdo){
             $sql = 'DELETE FROM tasks WHERE id = :id';
             try{
@@ -85,7 +94,7 @@ class Task
 
     public function modifyTask($description, $isDone, $taskId)
     {
-        $pdo = connectDB();
+        $pdo = $this->modelModel->connectDB();
         if($pdo){
             $sql="UPDATE tasks SET description=IFNULL(:description, description), is_done=:isDone WHERE id = :id";
             try{
