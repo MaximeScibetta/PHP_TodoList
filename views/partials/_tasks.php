@@ -1,6 +1,5 @@
-<?php var_dump($_SESSION); ?>
 
-<?php foreach ( $_SESSION['task'] as $task ): ?>
+<?php foreach ( $data['tasks'] as $task ): ?>
     <li style="margin-bottom:25px; list-style:none;">
         <?php if( (isset($_GET['id'])) && ($task->taskId === $_GET['id']) ): ?>
             <?php include 'views/partials/_modifyTask.php'; ?>

@@ -5,12 +5,12 @@
 <div class="main-content wrapper">
     <h1>Vos prochaines tâches</h1>
 <ol style="margin-top: 25px;padding-left: 0;">
-
     <?php
-        if(isset($_SESSION['task'])){
+    var_dump($data);
+        if($data['tasks']){
             include('views/partials/_tasks.php');
         }else{
-            echo '<li style="list-style: none; width: 500px;" class="alert alert-danger" role="alert">'.$_SESSION['errors']['task'].'</li>';
+            echo '<li style="list-style: none; width: 500px;" class="alert alert-danger" role="alert">'.$data['errors']['task'].'</li>';
         }
     ?>
 

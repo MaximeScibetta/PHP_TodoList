@@ -9,7 +9,7 @@
           href="./views/css/screen.css">
 </head>
 <body style="width: 500px; margin: 100px auto 0;">
-
+<?php var_dump($data);?>
 <header class="wrapper grid">
     <div id="branding" class=""><a href="index.php">Todolist</a></div>
     </header>
@@ -26,9 +26,9 @@
                            name="email" class="form-control form-control-lg">
                     <span class="col-sm-1 col-form-label col-form-label-lg">Votre email</span>
                 </label>
-                <?php if((isset($_SESSION['errors']['email']))): ?>
+                <?php if(isset($data['errors']['email'])): ?>
                     <div class="alert alert-danger" role="alert">
-                        <?= $_SESSION['errors']['email']; ?>
+                        <?= $data['errors']['email']; ?>
                     </div>
                <?php endif; ?>
             </div>
@@ -39,9 +39,9 @@
                            name="password" class="form-control form-control-lg">
                     <span class="col-sm-2 col-form-label col-form-label-lg">Votre mot de passe</span>
                 </label>
-                <?php if((isset($_SESSION['errors']['password']))): ?>
+                <?php if(isset($data['errors']['password'])): ?>
                     <div class="alert alert-danger" role="alert">
-                        <?= $_SESSION['errors']['password']; ?>
+                        <?= $data['errors']['password']; ?>
                     </div>
                 <?php endif; ?>
             </div>

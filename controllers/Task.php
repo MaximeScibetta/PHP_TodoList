@@ -15,15 +15,18 @@ class Task extends Controller
     public function listing()
     {
         $this->checkLogin();
-        if ($_SESSION['task'] = $this->tasksModel->getTasks($_SESSION['user']->id)) {
+        if ($this->tasksModel->getTasks($_SESSION['user']->id)) {
+            $tasks = $this->tasksModel->getTasks($_SESSION['user']->id);
+            $errors = [];
             $view = 'views/indexTask.php';
         } else {
-            $_SESSION['errors'] = [
+            $tasks = [];
+            $errors = [
                 'task' => 'Il semblerait que vous n`ayez pas encore de tâche.',
             ];
             $view = 'views/indexTask.php';
         }
-        return compact('view');
+        return compact('view', 'tasks', 'errors');
     }
     public function create()
     {
@@ -31,8 +34,9 @@ class Task extends Controller
         $description = $_POST['description'];
         if( isset($description) ){
             $this->tasksModel->createTask( $this->tasksModel->newTask($description) ,$_SESSION['user']->id );
-            header('Location: http://homestead.app'.$_SERVER['PHP_SELF'].'?a=listing&r=task');
-            exit;
+            $tasks = $this->tasksModel->getTasks($_SESSION['user']->id);
+            $view = 'views/indexTask.php';
+            return compact('view', 'tasks');
         }
     }
     public function postDelete()
@@ -40,15 +44,24 @@ class Task extends Controller
         $this->checkLogin();
         $taskId = $_POST['id'];
         $this->tasksModel->deleteTask($taskId);
-        unset($_SESSION['task']);
-        header('Location: http://homestead.app'.$_SERVER['PHP_SELF'].'?a=listing&r=task');
-        exit;
+        $tasks = $this->tasksModel->getTasks($_SESSION['user']->id);
+        if (empty($tasks)) {
+            $errors = [
+                'task' => 'Il semblerait que vous n`ayez pas encore de tâche.',
+            ];
+        }
+        $view = 'views/indexTask.php';
+        return compact('view', 'tasks', 'errors');
     }
     public function getUpdate()
     {
         $this->checkLogin();
-        //$taskId = $_GET['id'];
-        return ['view' => 'views/indexTask.php'];
+        if (isset($_GET['id'])){
+            $taskId = $_GET['id'];
+        }
+        $tasks = $this->tasksModel->getTasks($_SESSION['user']->id);
+        $view = 'views/indexTask.php';
+        return compact('view', 'tasks');
     }
 
     public function postUpdate()
@@ -66,8 +79,9 @@ class Task extends Controller
         $taskId = $_POST['id'];
         if(isset($description)||isset($isDone)||isset($taskId)){
             $this->tasksModel->modifyTask($description, $isDone, $taskId);
-            header('Location: http://homestead.app'.$_SERVER['PHP_SELF'].'?a=listing&r=task');
-            exit;
+            $tasks = $this->tasksModel->getTasks($_SESSION['user']->id);
+            $view = 'views/indexTask.php';
+            return compact('view', 'tasks');
         }
     }
 }
